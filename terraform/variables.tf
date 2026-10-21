@@ -134,3 +134,27 @@ variable "tags" {
     Environment = "dev"
   }
 }
+
+variable "http_port" {
+  description = "HTTP port exposed by the frontend reverse proxy."
+  type        = number
+  default     = 80
+}
+
+variable "backend_app_port" {
+  description = "Port used by the EpicBook Node.js application."
+  type        = number
+  default     = 8080
+}
+
+variable "mysql_port" {
+  description = "MySQL database port."
+  type        = number
+  default     = 3306
+}
+
+variable "ssh_port" {
+  description = "SSH management port."
+  type        = number
+  default     = 22
+}
