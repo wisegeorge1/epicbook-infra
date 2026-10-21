@@ -1,0 +1,24 @@
+project_name = "epicbook"
+
+location = "eastus2"
+
+resource_group_name = "rg-epicbook"
+
+vnet_address_space = [
+  "10.40.0.0/16"
+]
+
+frontend_subnet_cidr = "10.40.1.0/24"
+backend_subnet_cidr  = "10.40.2.0/24"
+database_subnet_cidr = "10.40.3.0/24"
+management_subnet_cidr = "10.40.10.0/24"
+
+admin_username = "azureuser"
+
+admin_source_cidr = "<YOUR_PUBLIC_IP>/32"
+
+ssh_public_key = "<YOUR_SSH_PUBLIC_KEY>"
+
+mysql_admin_username = "epicbookadmin"
+
+mysql_admin_password = "<SET_AS_SECRET>"

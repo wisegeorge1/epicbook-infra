@@ -1,0 +1,39 @@
+project_name = "epicbook"
+
+environment = "dev"
+
+location = "eastus2"
+
+resource_group_name = "rg-epicbook"
+
+vnet_address_space = [
+  "10.40.0.0/16"
+]
+
+frontend_subnet_cidr = "10.40.1.0/24"
+
+backend_subnet_cidr = "10.40.2.0/24"
+
+database_subnet_cidr = "10.40.3.0/24"
+
+management_subnet_cidr = "10.40.10.0/24"
+
+admin_username = "azureuser"
+
+admin_source_cidr = "<YOUR_PUBLIC_IP>/32"
+
+ssh_public_key = "<YOUR_SSH_PUBLIC_KEY>"
+
+frontend_vm_size = "Standard_B2s"
+
+backend_vm_size = "Standard_B2s"
+
+agent_vm_size = "Standard_B2s"
+
+mysql_admin_username = "epicbookadmin"
+
+mysql_admin_password = "<DO_NOT_COMMIT_REAL_PASSWORD>"
+
+mysql_sku_name = "B_Standard_B1ms"
+
+mysql_version = "8.0.21"
