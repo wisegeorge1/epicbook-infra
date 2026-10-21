@@ -16,19 +16,19 @@ variable "environment" {
 }
 
 variable "location" {
-  description = "Azure region where resources will be deployed."
+  description = "Azure region."
   type        = string
   default     = "eastus2"
 }
 
 variable "resource_group_name" {
-  description = "Name of the application resource group."
+  description = "Application resource group."
   type        = string
   default     = "rg-epicbook"
 }
 
 variable "vnet_address_space" {
-  description = "Address space for the EpicBook virtual network."
+  description = "Virtual network address space."
   type        = list(string)
 
   default = [
@@ -37,95 +37,137 @@ variable "vnet_address_space" {
 }
 
 variable "frontend_subnet_cidr" {
-  description = "CIDR range for the frontend subnet."
+  description = "Frontend subnet."
   type        = string
   default     = "10.40.1.0/24"
 }
 
 variable "backend_subnet_cidr" {
-  description = "CIDR range for the backend subnet."
+  description = "Backend subnet."
   type        = string
   default     = "10.40.2.0/24"
 }
 
 variable "database_subnet_cidr" {
-  description = "CIDR range for the MySQL delegated subnet."
+  description = "Database subnet."
   type        = string
   default     = "10.40.3.0/24"
 }
 
-variable "management_subnet_cidr" {
-  description = "CIDR range for the management/self-hosted-agent subnet."
-  type        = string
-  default     = "10.40.10.0/24"
-}
-
 variable "admin_username" {
-  description = "Linux administrator username for the Azure VMs."
+  description = "Linux administrator username."
   type        = string
   default     = "azureuser"
 }
 
 variable "admin_source_cidr" {
-  description = "Public IP/CIDR allowed to SSH to the management and frontend systems."
+  description = "CIDR allowed to SSH to the frontend VM."
   type        = string
 
   validation {
     condition     = can(cidrhost(var.admin_source_cidr, 0))
-    error_message = "admin_source_cidr must be a valid CIDR, for example 203.0.113.10/32."
+    error_message = "Provide a valid CIDR such as 203.0.113.10/32."
   }
 }
 
 variable "ssh_public_key" {
-  description = "SSH public key installed on the Azure VMs."
+  description = "SSH public key installed on both VMs."
   type        = string
   sensitive   = true
 }
 
 variable "frontend_vm_size" {
-  description = "Azure VM size for the frontend VM."
+  description = "Frontend VM size."
   type        = string
   default     = "Standard_B2s"
 }
 
 variable "backend_vm_size" {
-  description = "Azure VM size for the backend VM."
+  description = "Backend VM size."
   type        = string
   default     = "Standard_B2s"
 }
 
-variable "agent_vm_size" {
-  description = "Azure VM size for the Azure DevOps self-hosted agent."
+variable "os_disk_storage_type" {
+  description = "VM OS disk storage type."
   type        = string
-  default     = "Standard_B2s"
+  default     = "Standard_LRS"
+}
+
+variable "ubuntu_offer" {
+  description = "Ubuntu Marketplace offer."
+  type        = string
+  default     = "0001-com-ubuntu-server-jammy"
+}
+
+variable "ubuntu_sku" {
+  description = "Ubuntu Marketplace SKU."
+  type        = string
+  default     = "22_04-lts-gen2"
+}
+
+variable "ubuntu_version" {
+  description = "Ubuntu Marketplace image version."
+  type        = string
+  default     = "latest"
 }
 
 variable "mysql_admin_username" {
-  description = "Administrator username for Azure Database for MySQL."
+  description = "MySQL administrator username."
   type        = string
   default     = "epicbookadmin"
 }
 
 variable "mysql_admin_password" {
-  description = "Administrator password for Azure Database for MySQL."
+  description = "MySQL administrator password."
   type        = string
   sensitive   = true
 }
 
 variable "mysql_sku_name" {
-  description = "SKU for the MySQL Flexible Server."
+  description = "MySQL Flexible Server SKU."
   type        = string
   default     = "B_Standard_B1ms"
 }
 
 variable "mysql_version" {
-  description = "MySQL major version."
+  description = "MySQL version."
   type        = string
   default     = "8.0.21"
 }
 
+variable "http_port" {
+  description = "Frontend HTTP port."
+  type        = number
+  default     = 80
+}
+
+variable "https_port" {
+  description = "HTTPS port."
+  type        = number
+  default     = 443
+}
+
+variable "backend_app_port" {
+  description = "EpicBook backend application port."
+  type        = number
+  default     = 8080
+}
+
+variable "mysql_port" {
+  description = "MySQL port."
+  type        = number
+  default     = 3306
+}
+
+variable "ssh_port" {
+  description = "SSH port."
+  type        = number
+  default     = 22
+}
+
 variable "tags" {
-  description = "Common Azure resource tags."
+  description = "Common resource tags."
   type        = map(string)
 
   default = {
@@ -133,28 +175,4 @@ variable "tags" {
     ManagedBy   = "Terraform"
     Environment = "dev"
   }
-}
-
-variable "http_port" {
-  description = "HTTP port exposed by the frontend reverse proxy."
-  type        = number
-  default     = 80
-}
-
-variable "backend_app_port" {
-  description = "Port used by the EpicBook Node.js application."
-  type        = number
-  default     = 8080
-}
-
-variable "mysql_port" {
-  description = "MySQL database port."
-  type        = number
-  default     = 3306
-}
-
-variable "ssh_port" {
-  description = "SSH management port."
-  type        = number
-  default     = 22
 }
