@@ -1,0 +1,51 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+terraform.rc
+.terraformrc
+
+# Terraform variable files
+terraform.tfvars
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+
+# Ansible
+ansible/inventory/*.ini
+ansible/inventory/*.yml
+ansible/inventory/*.yaml
+ansible/group_vars/*secret*
+ansible/group_vars/*vault*
+*.retry
+
+# SSH
+.ssh/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
